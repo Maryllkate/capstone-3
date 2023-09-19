@@ -1,32 +1,43 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+const app = require("./app");
+const connectDatabase = require("./db/Database");
+const cloudinary = require("cloudinary");
 
-//require routes here:
-const userRoutes = require("./routes/user.route");
+// Handling uncaught Exception
+process.on("uncaughtException", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log(`shutting down the server for handling uncaught exception`);
+});
 
-const port = 3000;
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(cors());
-
-mongoose.connect("mongodb+srv://marylldriz:Chikit%400016@b-297.ynrfqyy.mongodb.net/inventoryDB?retryWrites=true&w=majority",
-{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-
-let inventoryDB = mongoose.connection;
-inventoryDB.on('error', console.error.bind(console, "connection error"));
-inventoryDB.on('open', () => console.log("connected to mongoDB Atlas"))
-
-//routes
-app.use("/api", userRoutes);
-
-if(require.main === module){
-    app.listen(port, () => console.log(`server is running at ${port}`));
+// config
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  require("dotenv").config({
+    path: "config/.env",
+  });
 }
 
-module.exports = app;
+// connect db
+connectDatabase();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+
+// create server
+const server = app.listen(process.env.PORT, () => {
+  console.log(
+    `Server is running on http://localhost:${process.env.PORT}`
+  );
+});
+
+// unhandled promise rejection
+process.on("unhandledRejection", (err) => {
+  console.log(`Shutting down the server for ${err.message}`);
+  console.log(`shutting down the server for unhandle promise rejection`);
+
+  server.close(() => {
+    process.exit(1);
+  });
+});
