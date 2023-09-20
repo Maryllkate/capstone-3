@@ -5,13 +5,11 @@ const sendToken = (user, statusCode, res) => {
     const token = user.getJwtToken();
 
     //options for cookie
+    const expiresTimeInHours = process.env.COOKIE_EXPIRES_TIME || 24;
     const options = {
         expires : new Date(
-            Date.now() + process.env.COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000 // hours * minutes * seconds * milliseconds
-            
-        ),
-
-        httpOnly: true
+            Date.now() + expiresTimeInHours * 24 * 60 * 60 * 1000), // hours * minutes * seconds * milliseconds
+            httpOnly: true
     }
 
     res.status(statusCode).cookie('token', token, options).json({
