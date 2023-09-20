@@ -1,0 +1,34 @@
+[
+    {
+        "productName" : "SanDisk Ultra 128GB SDXC UHS-I Memory Card up to 80MB/s",
+        "description" : "Ultra-fast cards (2) to take better pictures and Full HD videos (1) with your compact to mid-range point-and-shoot cameras and camcorders. With SanDisk Ultra SDXC UHS-I cards you’ll benefit from faster downloads, high capacity, and better performance to capture and store 128GB (5) of high quality pictures and Full HD video (1). Take advantage of ultra-fast read speeds of up to 80MB/s (3) to save time moving photos and videos from the card to your computer. From a leader in flash memory storage, SanDisk Ultra SDXC UHS-I cards are compatible with SDHC and SDXC digital devices, and come with a 10-year limited warranty (6).",
+        "ratings" : 4.5,
+        "images" : [{
+            "public_id" : "products/dsvbpny402gelwugv2le",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1608062030/products/dsvbpny402gelwugv2le.jpg"
+        }],
+        "category" : "Electronics",
+        "stock" : 50,
+        "price" : "45.89",
+        "numOfReviews" : 32,
+        "reviews" : [],
+        "userOrders" : [],
+        "createdOn" : ""
+    },
+    {
+        "productName" : "Apple MacBook Air (13-inch, 8GB RAM, 256GB SSD Storage) - Space Gray",
+        "description" : "Stunning 13.3-inch Retina display with True Tone technology, Backlit Magic Keyboard and Touch ID, Tenth-generation, Intel Core i3 processor, Intel Iris Plus Graphics, Fast SSD storage, 8GB of memory, Stereo speakers with wider stereo sound",
+        "ratings" : 4.9,
+        "images" : [{
+            "public_id" : "products/macbook_o2cj2k",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1606231282/products/macbook_o2cj2k.jpg"
+        }],
+        "category" : "Laptops",
+        "stock" : 1,
+        "price" : 949.99,
+        "numOfReviews" : 56,
+        "reviews" : [],
+        "userOrders" : [],
+        "createdOn" : ""
+    }
+]
