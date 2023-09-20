@@ -6,7 +6,7 @@ const auth = require('../middlewares/authUser');
 const { isAuthenticatedUser } = auth
 
 
-app.route('/products').get(productController.getProducts);
+app.route('/products').get(isAuthenticatedUser, productController.getProducts);
 app.route('/product/:id').get(productController.getSingleProduct)
 
 
