@@ -10,6 +10,8 @@ app.route('/login').post(userController.loginUser);
 
 app.route('/logout').get(authUser, userController.logoutUser);
 
+app.route('/password/forgot').post(userController.forgotPassword);
+
 
 
 module.exports = app;
