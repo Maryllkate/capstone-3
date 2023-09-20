@@ -5,6 +5,8 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors')
 const sendToken = require('../utils/jwtToken')
 const sendEmail = require('../utils/sendEmail')
 
+const crypto = require('crypto');
+
 //POST - register a user => /api/v1/register
 module.exports.registration = catchAsyncErrors( async (req, res, next) => {
 
@@ -58,7 +60,6 @@ module.exports.loginUser = catchAsyncErrors( async (req, res, next) => {
 })
 
 //forgot password => /api/v1/password/forgot
-
 module.exports.forgotPassword = catchAsyncErrors (async(req, res, next) => {
     const user = await User.findOne({ email: req.body.email});
 
@@ -72,7 +73,7 @@ module.exports.forgotPassword = catchAsyncErrors (async(req, res, next) => {
     await user.save({ validateBeforeSave: false})
 
     // create reset password URL
-    const resetURL= `${req.protocol}://${req.get('host')}/api/v1/password/reset${resetToken}`;
+    const resetURL= `${req.protocol}://${req.get('host')}/api/v1/password/reset-${resetToken}`;
 
     const message = `Your password reset token is as follow:\n\n${resetURL}\n\nIf you have not requested this email,
     then you don't have a choice., it was been reset by someone.`;
@@ -99,6 +100,37 @@ module.exports.forgotPassword = catchAsyncErrors (async(req, res, next) => {
         return next(new ErrorHandler(error.message, 500))
         
     }
+
+})
+
+//forgot password => /api/v1/password/reset/:token
+module.exports.resetPassword = catchAsyncErrors (async(req, res, next) => {
+    //hash URL token
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetpasswordExpire: { $gt: Date.now() }
+    })
+
+    if(!user){
+        return next(new ErrorHandler(`Password reset token is invalid or has been expired`, 400));
+    }
+
+    if(req.body.password !== req.body.confirmPassword) {
+        return next(new ErrorHandler('Password does not match', 400))
+    }
+
+    //new password
+    user.password = req.body.password;
+
+    user.resetPasswordToken = undefined;
+    user.resetpasswordExpire = undefined;
+
+    await user.save();
+
+    sendToken(user, 200, res)
+
 
 })
 

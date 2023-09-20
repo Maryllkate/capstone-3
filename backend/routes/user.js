@@ -12,6 +12,8 @@ app.route('/logout').get(authUser, userController.logoutUser);
 
 app.route('/password/forgot').post(userController.forgotPassword);
 
+app.route('/password/reset/:token').put(userController.resetPassword);
+
 
 
 module.exports = app;
