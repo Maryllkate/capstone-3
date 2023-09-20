@@ -10,8 +10,10 @@ app.use(cors());
 
 //routes
 const products = require('./routes/product')
+const users = require('./routes/user')
 
 app.use('/api/v1', products)
+app.use('/api/v1', users)
 
 //Middleware for handling errors
 app.use(errorMiddleware);
