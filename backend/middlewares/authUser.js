@@ -5,7 +5,7 @@ const ErrorHandler = require('../utils/errorhandler');
 const jwt = require('jsonwebtoken')
 
 //authentication of user 
-module.exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+module.exports.authUser = catchAsyncErrors(async (req, res, next) => {
 
     const { token } = req.cookies
     
@@ -15,7 +15,19 @@ module.exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => 
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.user = await User.findById(decoded.id);
-
     next()
 
 })
+
+//user roles
+module.exports.authRoles = (...roles) => {
+    return (req, res, next) => {
+        if(!roles.includes(req.user.role)){
+            return next(
+                new ErrorHandler(`Role (${req.user.role}) is not allowed to access this resource`, 403)
+            )
+        }
+
+        next()
+    }
+}
