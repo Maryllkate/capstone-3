@@ -29,3 +29,10 @@ process.on('unhandledRejection', err => {
                 process.exit(1)
         })
 })
+
+//handled uncaught exceptions
+process.on('uncaughtException', err => {
+        console.log(`ERROR: ${err.stack}`);
+        console.log(`Shutting down the server due to uncaught exceptions`);
+        process.exit(1);
+})
