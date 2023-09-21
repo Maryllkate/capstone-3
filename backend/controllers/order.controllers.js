@@ -40,11 +40,11 @@ module.exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 //GET - single order => /api/v1/order/:id
 module.exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 
-    const order = await Order.findById(req.params.id).populate("user", ["name", "email"])
+    const order = await Order.findById(req.params.id).populate('user', 'name email')
 
     if (!order) {
         return next(new ErrorHandler(`No Order found with this ID ${req.params.id}`, 404))
-        console.log(req.params.id)
+        //console.log(req.params.id)
     }
 
     res.status(200).json({
@@ -54,9 +54,9 @@ module.exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-// Get logged in user orders   =>   /api/v1/orders/me
-exports.myOrders = catchAsyncErrors(async (req, res, next) => {
-    const orders = await Order.find({ user: req.user.id })
+// Get logged in user orders   =>   /api/v1/orders/myOrders
+module.exports.myOrders = catchAsyncErrors(async (req, res, next) => {
+    const orders = await Order.find({user: req.user.id})
 
     res.status(200).json({
         success: true,
@@ -65,7 +65,7 @@ exports.myOrders = catchAsyncErrors(async (req, res, next) => {
 })
 
 // Get all orders - ADMIN  =>   /api/v1/admin/orders/
-exports.allOrders = catchAsyncErrors(async (req, res, next) => {
+module.exports.allOrders = catchAsyncErrors(async (req, res, next) => {
     const orders = await Order.find()
 
     let totalAmount = 0;
@@ -82,7 +82,7 @@ exports.allOrders = catchAsyncErrors(async (req, res, next) => {
 })
 
 // Update / Process order - ADMIN  =>   /api/v1/admin/order/:id
-exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
+module.exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
     const order = await Order.findById(req.params.id)
 
     if (order.orderStatus === 'Delivered') {
@@ -94,7 +94,7 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
     })
 
     order.orderStatus = req.body.status,
-        order.deliveredAt = Date.now()
+    order.deliveredAt = Date.now()
 
     await order.save()
 
@@ -112,14 +112,14 @@ async function updateStock(id, quantity) {
 }
 
 // Delete order   =>   /api/v1/admin/order/:id
-exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
-    const order = await Order.findById(req.params.id)
+module.exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
+    const order = await Order.findOneAndRemove ({_id: req.params.id});
 
     if (!order) {
         return next(new ErrorHandler('No Order found with this ID', 404))
     }
 
-    await order.remove()
+    await order.deleteOne()
 
     res.status(200).json({
         success: true

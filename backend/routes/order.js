@@ -7,11 +7,10 @@ const { authUser, authRoles } = auth
 
 app.route('/order/new').post(authUser, authRoles('user'), orderController.newOrder);
 
-//single order
+app.route('/order/myOrders').get(authUser, orderController.myOrders);
+
 app.route('/order/:id').get(authUser, orderController.getSingleOrder);
 
-//myOrders
-app.route('/order/myOrders').get(authUser, orderController.myOrders);
 
 //admin access
 app.route('/admin/orders').get(authUser, authRoles('admin'), orderController.allOrders);

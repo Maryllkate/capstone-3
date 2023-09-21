@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const user = require('./user')
+const Product = require('./product')
 
 const orderSchema = mongoose.Schema({
     shippingInfo: {
