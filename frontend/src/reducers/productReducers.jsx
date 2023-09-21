@@ -3,7 +3,7 @@ import { ALL_PRODUCTS_REQUEST,
     ALL_PRODUCTS_FAIL, 
     CLEAR_ERRORS} from "../constants/productConstants";
 
-export const productsReducer = (state = { products: []}, action => {
+export const productsReducer = (state = { products: []}, action) => {
     switch(action.type) {
         case ALL_PRODUCTS_REQUEST:
             return {
@@ -30,4 +30,4 @@ export const productsReducer = (state = { products: []}, action => {
         default:
             return state;
     }
-} )
+}
