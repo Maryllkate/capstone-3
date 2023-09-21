@@ -4,7 +4,7 @@ import MetaData  from './layout/MetaData'
 const Home = () => {
   return (
     <Fragment>
-        <MetaData title={'Buy Best Products Online'}/>
+        <MetaData title={'Buy Best Rockets Online'}/>
         <h1 id="products_heading">Latest Products</h1>
 
         <section id="products" className="container mt-5">
