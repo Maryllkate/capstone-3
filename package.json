@@ -23,6 +23,7 @@
     "nodemailer": "^6.9.5",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
+    "react-icons": "^4.11.0",
     "validator": "^13.11.0"
   },
   "devDependencies": {

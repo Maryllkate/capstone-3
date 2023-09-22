@@ -66,7 +66,7 @@ const ProductDetails = ({ match }) => {
 
         <hr />
 
-        <h4 className="mt-2">{product.description}</h4>
+        <h5 className="mt-2">{product.description}</h5>
         
         <hr />
 
