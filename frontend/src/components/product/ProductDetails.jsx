@@ -34,7 +34,7 @@ const ProductDetails = ({ match }) => {
 
         <div className="row f-flex justify-content-around">
         <div className="col-12 col-lg-5 img-fluid" id="product_image">
-            <img src="https://i5.walmartimages.com/asr/1223a935-2a61-480a-95a1-21904ff8986c_1.17fa3d7870e3d9b1248da7b1144787f5.jpeg?odnWidth=undefined&odnHeight=undefined&odnBg=ffffff" alt="sdf" height="500" width="500" />
+            <img src="../../public/images/astro.png" alt="sdf" height="450" width="500" />
         </div>
 
     <div className="col-12 col-lg-5 mt-5">
@@ -62,15 +62,13 @@ const ProductDetails = ({ match }) => {
 
         <hr />
 
-        <p>Status: <span id="stock_status">{product.stock}</span></p>
+        <p>Status: <span id="stock_status" className={product.stock > 0 ? 'greenColor' : 'redColor'}>{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span></p>
 
         <hr />
 
         <h5 className="mt-2">{product.description}</h5>
         
         <hr />
-
-        {/* <p id="product_seller mb-3">Sold by: <strong>Amazon</strong></p> */}
         
         <button id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal">
                     Submit Your Review
