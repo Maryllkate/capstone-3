@@ -21,6 +21,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.2",
     "nodemailer": "^6.9.5",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
     "validator": "^13.11.0"
   },
   "devDependencies": {

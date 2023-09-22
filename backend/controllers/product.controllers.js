@@ -16,15 +16,16 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 //GET all product => /api/v1/products
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
+   // return next(new ErrorHandler('My Error', 400))
+
     const products = await Product.find();
 
-    setTimeout(() => {
         res.status(200).json({
             sucess: true,
             count: products.length,
             products
         })
-    }, 2000);
+    
 })
 
 //GET single product => /api/v1/product/:id
