@@ -34,7 +34,7 @@ const ProductDetails = ({ match }) => {
 
         <div className="row f-flex justify-content-around">
         <div className="col-12 col-lg-5 img-fluid" id="product_image">
-            <img src="../../public/images/astro.png" alt="sdf" height="450" width="500" />
+            <img src="/images/astro.png" alt="sdf" height="450" width="500" />
         </div>
 
     <div className="col-12 col-lg-5 mt-5">

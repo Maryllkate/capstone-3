@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { BsFillCartPlusFill, BsPersonCircle } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 
 import '../../App.css'
 
@@ -30,7 +31,7 @@ const Header = () => {
       </div>
 
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        <button className="btn" id="login_btn"><BsPersonCircle /></button>
+        <Link to="/login" className="btn" id="login_btn"><BsPersonCircle /></Link>
 
         <span id="cart" className="ml-3"><BsFillCartPlusFill /></span>
         <span className="ml-1" id="cart_count">0</span>
