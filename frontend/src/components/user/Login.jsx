@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,9 +26,9 @@ const Login = ({ history }) => {
 
     useEffect(() => {
 
-        if(authUser || authRoles) {
-            history.push('/')
-        }
+        // if(authUser || authRoles) {
+        //     history.push('/')
+        // }
 
         if(error) {
             alert.error(error);
