@@ -4,7 +4,9 @@ import { Container } from 'react-bootstrap';
 
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
+
 import Home from './components/Home'
+import ProductDetails from './components/product/ProductDetails';
 
 function App() {
 
@@ -16,7 +18,8 @@ function App() {
         <Container>
           <Routes>
             <Route path= "/" element={<Home />} />
-
+            <Route path= "/product/:id" element={<ProductDetails />} />
+            
           </Routes>
         </Container>
 
