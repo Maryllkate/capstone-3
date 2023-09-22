@@ -1,15 +1,45 @@
-import React from 'react'
+import React, { useEffect, Fragment } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProductDetails, clearErrors } from '../../actions/productActions'
+import { useAlert } from 'react-alert'
+import { useParams } from 'react-router-dom'
 
-const ProductDetails = () => {
+//import { MetaData } from '../layout/MetaData'
+
+const ProductDetails = ({ match }) => {
+
+    const dispatch = useDispatch();
+    const alert = useAlert();
+    const { id } = useParams()
+
+    const { loading, error, product } = useSelector(state => state.productDetails)
+
+    useEffect(() => {
+
+        dispatch(getProductDetails(id))
+
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors())
+        }
+
+    }, [dispatch, alert, error, id])
+
+
+
+
   return (
-    <div className="row f-flex justify-content-around">
-    <div className="col-12 col-lg-5 img-fluid" id="product_image">
-        <img src="https://i5.walmartimages.com/asr/1223a935-2a61-480a-95a1-21904ff8986c_1.17fa3d7870e3d9b1248da7b1144787f5.jpeg?odnWidth=undefined&odnHeight=undefined&odnBg=ffffff" alt="sdf" height="500" width="500" />
-    </div>
+    <Fragment>
+        {/* <MetaData title={'Buy Best Rockets Online'} /> */}
+
+        <div className="row f-flex justify-content-around">
+        <div className="col-12 col-lg-5 img-fluid" id="product_image">
+            <img src="https://i5.walmartimages.com/asr/1223a935-2a61-480a-95a1-21904ff8986c_1.17fa3d7870e3d9b1248da7b1144787f5.jpeg?odnWidth=undefined&odnHeight=undefined&odnBg=ffffff" alt="sdf" height="500" width="500" />
+        </div>
 
     <div className="col-12 col-lg-5 mt-5">
-        <h3>onn. 32” Class HD (720P) LED Roku Smart TV (100012589)</h3>
-        <p id="product_id">Product # sklfjdk35fsdf5090</p>
+        <h3>{product.productName}</h3>
+        <p id="product_id">{product._id}</p>
 
         <hr />
 
@@ -20,7 +50,7 @@ const ProductDetails = () => {
 
         <hr />
 
-        <p id="product_price">$108.00</p>
+        <p id="product_price">PHP {product.price}</p>
         <div className="stockCounter d-inline">
             <span className="btn btn-danger minus">-</span>
 
@@ -32,20 +62,15 @@ const ProductDetails = () => {
 
         <hr />
 
-        <p>Status: <span id="stock_status">In Stock</span></p>
+        <p>Status: <span id="stock_status">{product.stock}</span></p>
 
         <hr />
 
-        <h4 className="mt-2">Description:</h4>
-        <p>
-            Binge on movies and TV episodes, news, sports, music and more! We insisted on 720p High Definition for this 32" 
-            LED TV, bringing out more lifelike color, texture and detail. We also partnered with Roku to bring you the best possible 
-            content with thousands of channels to choose from, conveniently presented through your own custom home screen.
-        </p>
-
+        <h4 className="mt-2">{product.description}</h4>
+        
         <hr />
 
-        <p id="product_seller mb-3">Sold by: <strong>Amazon</strong></p>
+        {/* <p id="product_seller mb-3">Sold by: <strong>Amazon</strong></p> */}
         
         <button id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal">
                     Submit Your Review
@@ -87,7 +112,8 @@ const ProductDetails = () => {
         </div>
     </div>
 </div>
-  )
-}
+        
+        </Fragment>
+    )}
 
 export default ProductDetails
